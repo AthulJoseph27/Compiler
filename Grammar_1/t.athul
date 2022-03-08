@@ -1,0 +1,5 @@
+FUN () {
+    athul = 6;
+    write(athul);
+    write(2980);
+}
