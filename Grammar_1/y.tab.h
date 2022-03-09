@@ -80,7 +80,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 21 "myscanner.y"
+#line 21 "parser.y"
 {int num; char* id; struct Node* nPtr;}
 /* Line 1529 of yacc.c.  */
 #line 87 "y.tab.h"

@@ -1,5 +1,5 @@
 %{
-    #include "myscanner.h"
+    #include "parser.h"
     #include "y.tab.h"
     #include <string.h>
     int yylex(void);

@@ -475,9 +475,9 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "myscanner.l"
-#line 2 "myscanner.l"
-    #include "myscanner.h"
+#line 1 "lexer.l"
+#line 2 "lexer.l"
+    #include "parser.h"
     #include "y.tab.h"
     #include <string.h>
     int yylex(void);
@@ -665,7 +665,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 10 "myscanner.l"
+#line 10 "lexer.l"
 
 #line 671 "lex.yy.c"
 
@@ -752,98 +752,98 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "myscanner.l"
+#line 11 "lexer.l"
 {return FUN;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "myscanner.l"
+#line 12 "lexer.l"
 {return READ_VALUE;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "myscanner.l"
+#line 13 "lexer.l"
 {return WRITE_VALUE;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "myscanner.l"
+#line 14 "lexer.l"
 {return IF;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "myscanner.l"
+#line 15 "lexer.l"
 {return ELSE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "myscanner.l"
+#line 16 "lexer.l"
 {return DO;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "myscanner.l"
+#line 17 "lexer.l"
 {return WHILE;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "myscanner.l"
+#line 18 "lexer.l"
 {return GE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "myscanner.l"
+#line 19 "lexer.l"
 {return LE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "myscanner.l"
+#line 20 "lexer.l"
 {return EE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "myscanner.l"
+#line 21 "lexer.l"
 {return NE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "myscanner.l"
+#line 22 "lexer.l"
 {return AND;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "myscanner.l"
+#line 23 "lexer.l"
 {return OR;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 25 "myscanner.l"
+#line 25 "lexer.l"
 {return yytext[0];};
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 26 "myscanner.l"
+#line 26 "lexer.l"
 {yylval.id=strdup(yytext); return VAR;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 27 "myscanner.l"
+#line 27 "lexer.l"
 {yylval.num = atoi(yytext); return NUM;}
 	YY_BREAK
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 28 "myscanner.l"
+#line 28 "lexer.l"
 ;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 29 "myscanner.l"
+#line 29 "lexer.l"
 {ECHO, yyerror("unexpected character\n");}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 31 "myscanner.l"
+#line 31 "lexer.l"
 ECHO;
 	YY_BREAK
 #line 850 "lex.yy.c"
@@ -1843,7 +1843,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "myscanner.l"
+#line 31 "lexer.l"
 
 
 

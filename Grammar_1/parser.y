@@ -1,5 +1,5 @@
 %{
-    #include "myscanner.h"
+    #include "parser.h"
     #include<stdio.h>
     #include<stdlib.h>
     #include <string.h>
@@ -12,7 +12,7 @@
     Node* add_node(int opr, int count,...);
     Node* create_node(int op, int type);
     int getId(char* var_name);
-    Node* execute(Node *p);
+    Node* generate_code(Node *p);
     int yylex(void);
     void yyerror (char *s);
 
@@ -28,13 +28,13 @@
 %left GE LE EE NE AND OR '>' '<'
 %left '+' '-'
 %left '*' '/'
-%type <nPtr> Stmt E Stmts IfStmt IfElseStmt AsgStmt ReadStmt WriteStmt
+%type <nPtr> Stmt E Stmts IfStmt IfElseStmt AsgStmt ReadStmt WriteStmt WhileStmt
 
 %start Program
 
 %%
 
-Program : FUN'('')''{'Stmts'}'              { execute($5); free_node($5); }
+Program : FUN'('')''{'Stmts'}'              { generate_code($5); free_node($5); }
         ;
 Stmts   :   Stmts Stmt                      { $$ = add_node(';',2, $1, $2); }
         |   Stmt                            { $$=$1;}
@@ -44,12 +44,15 @@ Stmt    : AsgStmt
         | WriteStmt
         | IfStmt
         | IfElseStmt
+        | WhileStmt
         ;
 AsgStmt : VAR'='E';'                              { $$=add_node('=',2,create_node(getId($1),VARIABLE_TYPE),$3);}
         ;
 IfStmt      : IF'('E')' '{'Stmts'}' %prec IFX     { $$=add_node(IF,2,$3,$6);}
             ;
-IfElseStmt  : IF'('E')''{'Stmts'}'ELSE'{'Stmts'}' { $$=add_node(IF,2,$3,$6);}
+IfElseStmt  : IF'('E')''{'Stmts'}'ELSE'{'Stmts'}' { $$=add_node(IF,3,$3,$6,$10);}
+            ;
+WhileStmt   : DO '{' Stmts '}' WHILE '('E')'';'   { $$=add_node(WHILE,2,$3,$7);}
             ;
 ReadStmt    : READ_VALUE'('VAR')'';'   { $$ = add_node(READ_VALUE,1,create_node(getId($3),VARIABLE_TYPE));};
             ;

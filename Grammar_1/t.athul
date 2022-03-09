@@ -1,5 +1,9 @@
-FUN () {
-    athul = 6;
-    write(athul);
-    write(2980);
-}
+FUN() {
+read (abc);
+write(abc);
+read (pqr);
+write(pqr);
+read (stu);
+write(stu);
+
+ }
