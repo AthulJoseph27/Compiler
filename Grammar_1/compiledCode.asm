@@ -42,17 +42,14 @@ _scanInt:
 	syscall
 	mov rax, [input]
 	cmp rax, 10
-	jne _parseInt
-	ret
-_parseInt:
-	mov rax, [num]
-	mov rdx, 0
-	mov rbx, 10
+	je _exit
+	mov rcx , [input]
+	sub rcx , 30h
+	mov rbx , 10
+	mov rax , [num]
 	mul rbx
-	mov rcx, [input]
-	sub rcx, 30h
-	add rax, rcx
-	mov [num], rax
+	add rax , rcx
+	mov [num] , rax
 	jmp _scanInt
 _exit:
 	ret
@@ -127,27 +124,53 @@ _push_one:
 	mov [temp], rax
 	ret
 _start:
+	push 0
+	pop rax
+	mov [a], rax
+	jmp L000
+L000:
 	mov rax, 0
+	mov [num], rax
 	call _scanInt
 	mov rax, [num]
+	mov [b], rax
+	mov rax, [a]
+	push rax
+	mov rax, [b]
+	push rax
+	pop rax
+	mov [temp], rax
+	pop rax
+	add rax, [temp]
+	push rax
+	pop rax
 	mov [a], rax
+	mov rax, [b]
+	push rax
+	push 0
+	pop rax
+	mov [rho], rax
+	pop rax
+	mov [lho], rax
+	call _compareNE
+	mov rax,[temp]
+	push rax
+	pop rax
+	cmp rax,1
+	je L000
+	jmp	L001
+L001:
 	mov rax, [a]
 	push rax
 	pop rax
 	call _printRAX
-	mov rax, 0
-	call _scanInt
-	mov rax, [num]
-	mov [b], rax
-	mov rax, [b]
+	mov rax, [a]
 	push rax
+	push 32
 	pop rax
-	call _printRAX
-	mov rax, 0
-	call _scanInt
-	mov rax, [num]
-	mov [c], rax
-	mov rax, [c]
+	mov [temp], rax
+	pop rax
+	add rax, [temp]
 	push rax
 	pop rax
 	call _printRAX

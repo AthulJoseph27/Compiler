@@ -1,9 +1,0 @@
-FUN() {
-read (abc);
-write(abc);
-read (pqr);
-write(pqr);
-read (stu);
-write(stu);
-
- }

@@ -36,6 +36,8 @@ void print_int()
 
 void read_int(int var)
 {
+    printf("\tmov rax, 0\n");
+    printf("\tmov [num], rax\n");
     printf("\tcall _scanInt\n");
     printf("\tmov rax, [num]\n");
     printf("\tmov [%c], rax\n", (var + 'a'));
@@ -45,12 +47,12 @@ void terminate()
 {
     printf("\tmov rax, 60\n");
     printf("\tmov rdi, 0\n");
-    printf("\tsyscall");
+    printf("\tsyscall\n");
 }
 
 int execute(Node *node)
 {
-    int lbl1, lbl2;
+    int lbl1, lbl2, lbl3;
     if (node == NULL)
         return 0;
 
@@ -73,27 +75,38 @@ int execute(Node *node)
                 printf("\tcmp rax, 1\n");
                 printf("\tje\tL%03d\n", lbl1 = lbl++);
                 printf("\tjmp\tL%03d\n", lbl2 = lbl++);
+                lbl3 = lbl++;
                 printf("L%03d:\n", lbl1);
                 execute(node->children[1]);
+                printf("\tjmp L%03d\n", lbl3);
                 printf("L%03d:\n", lbl2);
                 execute(node->children[2]);
+                printf("\tjmp L%03d\n", lbl3);
+                printf("L%03d:\n", lbl3);
             }
             else
             {
                 printf("\tpop rax\n");
                 printf("\tcmp rax, 1\n");
                 printf("\tje\tL%03d\n", lbl1 = lbl++);
+                lbl2 = lbl++;
+                printf("\tjmp L%03d\n", lbl2);
                 printf("L%03d:\n", lbl1);
                 execute(node->children[1]);
+                printf("\tjmp L%03d\n", lbl2);
+                printf("L%03d:\n", lbl2);
             }
         }
         else if (node->oper == WHILE)
         {
-            printf("L%03d:\n", lbl1 = lbl++);
+            printf("\tjmp L%03d\n", lbl1 = lbl++);
+            printf("L%03d:\n", lbl1);
             execute(node->children[0]);
-            printf("\tjz\tL%03d\n", lbl2 = lbl++);
-            execute(node->children[1]);
-            printf("\tjmp\tL%03d\n", lbl1);
+            execute(node->children[1]); // execute while condition
+            printf("\tpop rax\n");
+            printf("\tcmp rax,1\n");
+            printf("\tje L%03d\n", lbl1);
+            printf("\tjmp\tL%03d\n", lbl2 = lbl++);
             printf("L%03d:\n", lbl2);
         }
         else if (node->oper == WRITE_VALUE)
@@ -245,21 +258,15 @@ void generate_code(Node *node)
 
         "\tmov rax, [input]\n"
         "\tcmp rax, 10\n"
-        "\tjne _parseInt\n"
-
-        "\tret\n"
-
-        "_parseInt:\n"
-        "\tmov rax, [num]\n"
-        "\tmov rdx, 0\n"
-        "\tmov rbx, 10\n"
+        "\tje _exit\n"
+        "\tmov rcx , [input]\n"
+        "\tsub rcx , 30h\n"
+        "\tmov rbx , 10\n"
+        "\tmov rax , [num]\n"
         "\tmul rbx\n"
 
-        "\tmov rcx, [input]\n"
-        "\tsub rcx, 30h\n"
-        "\tadd rax, rcx\n"
-
-        "\tmov [num], rax\n"
+        "\tadd rax , rcx\n"
+        "\tmov [num] , rax\n"
         "\tjmp _scanInt\n"
 
         "_exit:\n"

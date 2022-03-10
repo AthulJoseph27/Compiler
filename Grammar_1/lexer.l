@@ -24,7 +24,7 @@
 
 [-|+|*|/|^|>|<|!|(|)|{|}|=|;]           {return yytext[0];};
 [a-zA-Z][_a-zA-Z0-9]*   {yylval.id=strdup(yytext); return VAR;}
-[1-9][0-9]*             {yylval.num = atoi(yytext); return NUM;}
+[0-9][0-9]*             {yylval.num = atoi(yytext); return NUM;}
 [ \t\n]                 ;
 .                       {ECHO, yyerror("unexpected character\n");}
 
