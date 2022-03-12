@@ -1,0 +1,947 @@
+Terminals which are not used
+
+   OR
+   AND
+   '-'
+   '/'
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: FUN '(' ')' '{' Stmts '}'
+
+    2 Stmts: Stmts Stmt
+    3      | Stmt
+
+    4 Stmt: AsgStmt
+    5     | ReadStmt
+    6     | WriteStmt
+    7     | IfStmt
+    8     | IfElseStmt
+    9     | WhileStmt
+
+   10 AsgStmt: VAR '=' E ';'
+
+   11 IfStmt: IF '(' E ')' '{' Stmts '}'
+
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' ELSE '{' Stmts '}'
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE '(' E ')' ';'
+
+   14 ReadStmt: READ_VALUE '(' VAR ')' ';'
+
+   15 WriteStmt: WRITE_VALUE '(' E ')' ';'
+
+   16 E: NUM
+   17  | VAR
+   18  | E '+' E
+   19  | E '*' E
+   20  | E '>' E
+   21  | E '<' E
+   22  | E LE E
+   23  | E GE E
+   24  | E NE E
+   25  | E EE E
+   26  | '(' E ')'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 1 11 12 13 14 15 26
+')' (41) 1 11 12 13 14 15 26
+'*' (42) 19
+'+' (43) 18
+'-' (45)
+'/' (47)
+';' (59) 10 13 14 15
+'<' (60) 21
+'=' (61) 10
+'>' (62) 20
+'{' (123) 1 11 12 13
+'}' (125) 1 11 12 13
+error (256)
+NUM (258) 16
+VAR (259) 10 14 17
+WHILE (260) 13
+IF (261) 11 12
+FUN (262) 1
+WRITE_VALUE (263) 15
+READ_VALUE (264) 14
+DO (265) 13
+IFX (266)
+ELSE (267) 12
+OR (268)
+AND (269)
+NE (270) 24
+EE (271) 25
+LE (272) 22
+GE (273) 23
+
+
+Nonterminals, with rules where they appear
+
+$accept (31)
+    on left: 0
+Program (32)
+    on left: 1, on right: 0
+Stmts (33)
+    on left: 2 3, on right: 1 2 11 12 13
+Stmt (34)
+    on left: 4 5 6 7 8 9, on right: 2 3
+AsgStmt (35)
+    on left: 10, on right: 4
+IfStmt (36)
+    on left: 11, on right: 7
+IfElseStmt (37)
+    on left: 12, on right: 8
+WhileStmt (38)
+    on left: 13, on right: 9
+ReadStmt (39)
+    on left: 14, on right: 5
+WriteStmt (40)
+    on left: 15, on right: 6
+E (41)
+    on left: 16 17 18 19 20 21 22 23 24 25 26, on right: 10 11 12 13
+    15 18 19 20 21 22 23 24 25 26
+
+
+state 0
+
+    0 $accept: . Program $end
+
+    FUN  shift, and go to state 1
+
+    Program  go to state 2
+
+
+state 1
+
+    1 Program: FUN . '(' ')' '{' Stmts '}'
+
+    '('  shift, and go to state 3
+
+
+state 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    1 Program: FUN '(' . ')' '{' Stmts '}'
+
+    ')'  shift, and go to state 5
+
+
+state 4
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 5
+
+    1 Program: FUN '(' ')' . '{' Stmts '}'
+
+    '{'  shift, and go to state 6
+
+
+state 6
+
+    1 Program: FUN '(' ')' '{' . Stmts '}'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+
+    Stmts       go to state 12
+    Stmt        go to state 13
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 7
+
+   10 AsgStmt: VAR . '=' E ';'
+
+    '='  shift, and go to state 20
+
+
+state 8
+
+   11 IfStmt: IF . '(' E ')' '{' Stmts '}'
+   12 IfElseStmt: IF . '(' E ')' '{' Stmts '}' ELSE '{' Stmts '}'
+
+    '('  shift, and go to state 21
+
+
+state 9
+
+   15 WriteStmt: WRITE_VALUE . '(' E ')' ';'
+
+    '('  shift, and go to state 22
+
+
+state 10
+
+   14 ReadStmt: READ_VALUE . '(' VAR ')' ';'
+
+    '('  shift, and go to state 23
+
+
+state 11
+
+   13 WhileStmt: DO . '{' Stmts '}' WHILE '(' E ')' ';'
+
+    '{'  shift, and go to state 24
+
+
+state 12
+
+    1 Program: FUN '(' ')' '{' Stmts . '}'
+    2 Stmts: Stmts . Stmt
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+    '}'          shift, and go to state 25
+
+    Stmt        go to state 26
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 13
+
+    3 Stmts: Stmt .
+
+    $default  reduce using rule 3 (Stmts)
+
+
+state 14
+
+    4 Stmt: AsgStmt .
+
+    $default  reduce using rule 4 (Stmt)
+
+
+state 15
+
+    7 Stmt: IfStmt .
+
+    $default  reduce using rule 7 (Stmt)
+
+
+state 16
+
+    8 Stmt: IfElseStmt .
+
+    $default  reduce using rule 8 (Stmt)
+
+
+state 17
+
+    9 Stmt: WhileStmt .
+
+    $default  reduce using rule 9 (Stmt)
+
+
+state 18
+
+    5 Stmt: ReadStmt .
+
+    $default  reduce using rule 5 (Stmt)
+
+
+state 19
+
+    6 Stmt: WriteStmt .
+
+    $default  reduce using rule 6 (Stmt)
+
+
+state 20
+
+   10 AsgStmt: VAR '=' . E ';'
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 30
+
+
+state 21
+
+   11 IfStmt: IF '(' . E ')' '{' Stmts '}'
+   12 IfElseStmt: IF '(' . E ')' '{' Stmts '}' ELSE '{' Stmts '}'
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 31
+
+
+state 22
+
+   15 WriteStmt: WRITE_VALUE '(' . E ')' ';'
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 32
+
+
+state 23
+
+   14 ReadStmt: READ_VALUE '(' . VAR ')' ';'
+
+    VAR  shift, and go to state 33
+
+
+state 24
+
+   13 WhileStmt: DO '{' . Stmts '}' WHILE '(' E ')' ';'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+
+    Stmts       go to state 34
+    Stmt        go to state 13
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 25
+
+    1 Program: FUN '(' ')' '{' Stmts '}' .
+
+    $default  reduce using rule 1 (Program)
+
+
+state 26
+
+    2 Stmts: Stmts Stmt .
+
+    $default  reduce using rule 2 (Stmts)
+
+
+state 27
+
+   16 E: NUM .
+
+    $default  reduce using rule 16 (E)
+
+
+state 28
+
+   17 E: VAR .
+
+    $default  reduce using rule 17 (E)
+
+
+state 29
+
+   26 E: '(' . E ')'
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 35
+
+
+state 30
+
+   10 AsgStmt: VAR '=' E . ';'
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '>'  shift, and go to state 36
+    '<'  shift, and go to state 37
+    NE   shift, and go to state 38
+    EE   shift, and go to state 39
+    LE   shift, and go to state 40
+    GE   shift, and go to state 41
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+    ';'  shift, and go to state 44
+
+
+state 31
+
+   11 IfStmt: IF '(' E . ')' '{' Stmts '}'
+   12 IfElseStmt: IF '(' E . ')' '{' Stmts '}' ELSE '{' Stmts '}'
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '>'  shift, and go to state 36
+    '<'  shift, and go to state 37
+    NE   shift, and go to state 38
+    EE   shift, and go to state 39
+    LE   shift, and go to state 40
+    GE   shift, and go to state 41
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+    ')'  shift, and go to state 45
+
+
+state 32
+
+   15 WriteStmt: WRITE_VALUE '(' E . ')' ';'
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '>'  shift, and go to state 36
+    '<'  shift, and go to state 37
+    NE   shift, and go to state 38
+    EE   shift, and go to state 39
+    LE   shift, and go to state 40
+    GE   shift, and go to state 41
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+    ')'  shift, and go to state 46
+
+
+state 33
+
+   14 ReadStmt: READ_VALUE '(' VAR . ')' ';'
+
+    ')'  shift, and go to state 47
+
+
+state 34
+
+    2 Stmts: Stmts . Stmt
+   13 WhileStmt: DO '{' Stmts . '}' WHILE '(' E ')' ';'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+    '}'          shift, and go to state 48
+
+    Stmt        go to state 26
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 35
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+   26  | '(' E . ')'
+
+    '>'  shift, and go to state 36
+    '<'  shift, and go to state 37
+    NE   shift, and go to state 38
+    EE   shift, and go to state 39
+    LE   shift, and go to state 40
+    GE   shift, and go to state 41
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+    ')'  shift, and go to state 49
+
+
+state 36
+
+   20 E: E '>' . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 50
+
+
+state 37
+
+   21 E: E '<' . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 51
+
+
+state 38
+
+   24 E: E NE . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 52
+
+
+state 39
+
+   25 E: E EE . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 53
+
+
+state 40
+
+   22 E: E LE . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 54
+
+
+state 41
+
+   23 E: E GE . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 55
+
+
+state 42
+
+   18 E: E '+' . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 56
+
+
+state 43
+
+   19 E: E '*' . E
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 57
+
+
+state 44
+
+   10 AsgStmt: VAR '=' E ';' .
+
+    $default  reduce using rule 10 (AsgStmt)
+
+
+state 45
+
+   11 IfStmt: IF '(' E ')' . '{' Stmts '}'
+   12 IfElseStmt: IF '(' E ')' . '{' Stmts '}' ELSE '{' Stmts '}'
+
+    '{'  shift, and go to state 58
+
+
+state 46
+
+   15 WriteStmt: WRITE_VALUE '(' E ')' . ';'
+
+    ';'  shift, and go to state 59
+
+
+state 47
+
+   14 ReadStmt: READ_VALUE '(' VAR ')' . ';'
+
+    ';'  shift, and go to state 60
+
+
+state 48
+
+   13 WhileStmt: DO '{' Stmts '}' . WHILE '(' E ')' ';'
+
+    WHILE  shift, and go to state 61
+
+
+state 49
+
+   26 E: '(' E ')' .
+
+    $default  reduce using rule 26 (E)
+
+
+state 50
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   20  | E '>' E .
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 20 (E)
+
+
+state 51
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   21  | E '<' E .
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 21 (E)
+
+
+state 52
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   24  | E NE E .
+   25  | E . EE E
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 24 (E)
+
+
+state 53
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+   25  | E EE E .
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 25 (E)
+
+
+state 54
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   22  | E LE E .
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 22 (E)
+
+
+state 55
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   23  | E GE E .
+   24  | E . NE E
+   25  | E . EE E
+
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 23 (E)
+
+
+state 56
+
+   18 E: E . '+' E
+   18  | E '+' E .
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '*'  shift, and go to state 43
+
+    $default  reduce using rule 18 (E)
+
+
+state 57
+
+   18 E: E . '+' E
+   19  | E . '*' E
+   19  | E '*' E .
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    $default  reduce using rule 19 (E)
+
+
+state 58
+
+   11 IfStmt: IF '(' E ')' '{' . Stmts '}'
+   12 IfElseStmt: IF '(' E ')' '{' . Stmts '}' ELSE '{' Stmts '}'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+
+    Stmts       go to state 62
+    Stmt        go to state 13
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 59
+
+   15 WriteStmt: WRITE_VALUE '(' E ')' ';' .
+
+    $default  reduce using rule 15 (WriteStmt)
+
+
+state 60
+
+   14 ReadStmt: READ_VALUE '(' VAR ')' ';' .
+
+    $default  reduce using rule 14 (ReadStmt)
+
+
+state 61
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE . '(' E ')' ';'
+
+    '('  shift, and go to state 63
+
+
+state 62
+
+    2 Stmts: Stmts . Stmt
+   11 IfStmt: IF '(' E ')' '{' Stmts . '}'
+   12 IfElseStmt: IF '(' E ')' '{' Stmts . '}' ELSE '{' Stmts '}'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+    '}'          shift, and go to state 64
+
+    Stmt        go to state 26
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 63
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE '(' . E ')' ';'
+
+    NUM  shift, and go to state 27
+    VAR  shift, and go to state 28
+    '('  shift, and go to state 29
+
+    E  go to state 65
+
+
+state 64
+
+   11 IfStmt: IF '(' E ')' '{' Stmts '}' .
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' . ELSE '{' Stmts '}'
+
+    ELSE  shift, and go to state 66
+
+    $default  reduce using rule 11 (IfStmt)
+
+
+state 65
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE '(' E . ')' ';'
+   18 E: E . '+' E
+   19  | E . '*' E
+   20  | E . '>' E
+   21  | E . '<' E
+   22  | E . LE E
+   23  | E . GE E
+   24  | E . NE E
+   25  | E . EE E
+
+    '>'  shift, and go to state 36
+    '<'  shift, and go to state 37
+    NE   shift, and go to state 38
+    EE   shift, and go to state 39
+    LE   shift, and go to state 40
+    GE   shift, and go to state 41
+    '+'  shift, and go to state 42
+    '*'  shift, and go to state 43
+    ')'  shift, and go to state 67
+
+
+state 66
+
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' ELSE . '{' Stmts '}'
+
+    '{'  shift, and go to state 68
+
+
+state 67
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE '(' E ')' . ';'
+
+    ';'  shift, and go to state 69
+
+
+state 68
+
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' ELSE '{' . Stmts '}'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+
+    Stmts       go to state 70
+    Stmt        go to state 13
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 69
+
+   13 WhileStmt: DO '{' Stmts '}' WHILE '(' E ')' ';' .
+
+    $default  reduce using rule 13 (WhileStmt)
+
+
+state 70
+
+    2 Stmts: Stmts . Stmt
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' ELSE '{' Stmts . '}'
+
+    VAR          shift, and go to state 7
+    IF           shift, and go to state 8
+    WRITE_VALUE  shift, and go to state 9
+    READ_VALUE   shift, and go to state 10
+    DO           shift, and go to state 11
+    '}'          shift, and go to state 71
+
+    Stmt        go to state 26
+    AsgStmt     go to state 14
+    IfStmt      go to state 15
+    IfElseStmt  go to state 16
+    WhileStmt   go to state 17
+    ReadStmt    go to state 18
+    WriteStmt   go to state 19
+
+
+state 71
+
+   12 IfElseStmt: IF '(' E ')' '{' Stmts '}' ELSE '{' Stmts '}' .
+
+    $default  reduce using rule 12 (IfElseStmt)

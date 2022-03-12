@@ -279,7 +279,7 @@ void generate_code(Node *node)
         "\tinc rcx\n"
         "\tmov [digitSpacePos], rcx\n"
 
-        "_printRAXLoop:"
+        "_printRAXLoop:\n"
         "\tmov rdx, 0\n"
         "\tmov rbx, 10\n"
         "\tdiv rbx\n"
