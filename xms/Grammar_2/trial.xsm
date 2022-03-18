@@ -1,0 +1,32 @@
+0
+2056
+0
+0
+0
+0
+0
+0
+BRKP // 2056
+MOV SP, 4195 // 58
+MOV R2, 123  // 60
+PUSH R2      // 62
+CALL 2068 // 2064
+JMP 2074 // 2066
+CALL 2072     // 68
+RET           // 70
+RET             // 72
+POP R0
+MOV [4097],R0
+MOV R1, "PrintInt"
+PUSH R1
+MOV R2, -2
+PUSH R2
+MOV R2, [4097]
+PUSH R2
+PUSH R2
+PUSH R2
+CALL 0
+MOV R2, 10
+PUSH R2
+INT 10
+RET

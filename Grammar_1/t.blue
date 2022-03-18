@@ -1,7 +1,3 @@
 FUN() {
-sum = 0; do {
-read(x);
-sum = sum + x; } while (x != 0 );
-write (sum);
-write(sum+32);
+write(x);
 }

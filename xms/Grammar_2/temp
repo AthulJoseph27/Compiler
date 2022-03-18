@@ -1,0 +1,64 @@
+[2058] MOV SP, 4195
+[2060] MOV R1, "ScanInt"
+[2062] PUSH R1
+[2064] MOV R1, -2
+[2066] PUSH R1
+[2068] PUSH R0
+[2070] PUSH R1
+[2072] PUSH R1
+[2074] CALL 0
+[2076] POP R0
+[2078] POP R1
+[2080] POP R1
+[2082] POP R1
+[2084] POP R1
+[2086] MOV R0,[4096]
+[2088] PUSH R0
+[2090] POP R0
+[2092] MOV [4098], R0
+[2094] MOV R0, [4098]
+[2096] PUSH R0
+[2098] PUSH R0
+[2100] CALL FUN
+[2102] POP R0
+[2104] MOV [4098], R0
+[2106] MOV R0, [4098]
+[2108] PUSH R0
+[2110] JMP _PRINT
+[2112] POP R0
+[2114] MOV [4101], R0
+[2116] MOV R0, 10
+[2118] PUSH R0
+[2120] JMP RETURN_LABEL
+[2122] POP R0
+[2124] MOV [4097],R0
+[2126] MOV R1, "PrintInt"
+[2128] PUSH R1
+[2130] MOV R2, -2
+[2132] PUSH R2
+[2134] MOV R2, [4097]
+[2136] PUSH R2
+[2138] PUSH R2
+[2140] PUSH R2
+[2142] CALL 0
+[2144] MOV R2, 10
+[2146] PUSH R2
+[2148] INT 10
+[2150] RET
+[WARNING]: UnRecognized label! Label - '4195'
+[WARNING]: UnRecognized label! Label - '"ScanInt"'
+[WARNING]: UnRecognized label! Label - '-2'
+[WARNING]: UnRecognized label! Label - '0'
+[WARNING]: UnRecognized label! Label - ''
+[WARNING]: UnRecognized label! Label - 'R0'
+[WARNING]: UnRecognized label! Label - '[4098]'
+[WARNING]: UnRecognized label! Label - 'R0'
+[WARNING]: UnRecognized label! Label - '[4098]'
+[WARNING]: UnRecognized label! Label - 'R0'
+[WARNING]: UnRecognized label! Label - '10'
+[WARNING]: UnRecognized label! Label - ''
+[WARNING]: UnRecognized label! Label - '"PrintInt"'
+[WARNING]: UnRecognized label! Label - '-2'
+[WARNING]: UnRecognized label! Label - '[4097]'
+[WARNING]: UnRecognized label! Label - '0'
+[WARNING]: UnRecognized label! Label - '10'
